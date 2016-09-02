@@ -7,17 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
-struct Movie {
+class Movie {
     
     let title: String
     let rating: Double
     let description: String
     let imageString: String
+    var image: UIImage?
     
-}
-
-extension Movie {
+    init(title: String, rating: Double, description: String, imageString: String){
+        self.title = title
+        self.rating = rating
+        self.description = description
+        self.imageString = imageString
+    }
+    
     
     init?(dictionary: [String: AnyObject]){
         
@@ -26,11 +32,32 @@ extension Movie {
             let description = dictionary["overview"] as? String,
             let imageString = dictionary["poster_path"] as? String else {return nil}
         
-        self.title = title
-        self.rating = rating
-        self.description = description
-        self.imageString = imageString
+        //self.init(title: title, rating: rating, description: description, imageString: imageString)
         
+                self.title = title
+                self.rating = rating
+                self.description = description
+                self.imageString = imageString
+                self.image = nil
     }
-    
 }
+
+//extension Movie {
+//    
+//    init?(dictionary: [String: AnyObject]){
+//        
+//        guard let title = dictionary["original_title"] as? String,
+//            let rating = dictionary["vote_average"] as? Double,
+//            let description = dictionary["overview"] as? String,
+//            let imageString = dictionary["poster_path"] as? String else {return nil}
+//        
+//        self.init(title: title, rating: rating, description: description, imageString: imageString)
+////        
+////        self.title = title
+////        self.rating = rating
+////        self.description = description
+////        self.imageString = imageString
+////        self.image = nil
+//    }
+//    
+//}

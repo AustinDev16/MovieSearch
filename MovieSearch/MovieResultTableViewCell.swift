@@ -15,5 +15,16 @@ class MovieResultTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var movieImageView: UIImageView!
+    
+    
+    func updateWithMovie(movie: Movie){
+        titleLabel.text = movie.title
+        ratingLabel.text = "Rating: \(movie.rating)"
+        descriptionLabel.text = movie.description
+        
+        movieImageView.image = movie.image
+        
+        
+    }
 
 }
