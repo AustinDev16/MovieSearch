@@ -10,14 +10,25 @@ import UIKit
 
 class MovieListTableViewController: UITableViewController {
 
+    let movieController = MovieController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        movieController.fetchMovies("Jurassic park") { (fetchedMovies) in
+            
+            print(fetchedMovies.count)
+            print(fetchedMovies.map { $0.title })
+            
+            //fetch image
+            
+            
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                
+            })
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
