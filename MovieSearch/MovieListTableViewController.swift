@@ -86,6 +86,7 @@ class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.placeholder = "Search for a movie."
         
         
+        
     }
 
  
