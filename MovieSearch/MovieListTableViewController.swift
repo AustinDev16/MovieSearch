@@ -8,51 +8,83 @@
 
 import UIKit
 
-class MovieListTableViewController: UITableViewController {
+class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
 
-    let movieController = MovieController()
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    func updateViews(){
-        tableView.reloadData()
-        print("table view reloading")
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        guard let searchTerm = searchBar.text where searchTerm.characters.count > 0 else {return}
+        
+        fetchResults(searchTerm)
+        
+        view.endEditing(true)
+        
+        
+        
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        movieController.fetchMovies("Jurassic park") { (fetchedMovies) in
+    func fetchResults(searchTerm: String){
+        movieController.fetchMovies(searchTerm) { (fetchedMovies) in
             
             print(fetchedMovies.count)
             print(fetchedMovies.map { $0.title })
             
-            self.movieController.fetchedMovies = fetchedMovies
+            // self.movieController.fetchedMovies = fetchedMovies
             //fetch image
             
-            for movie in self.movieController.fetchedMovies {
-                
-                // fetch image
-                
-                ImageController.fetchImage(movie.imageString, completion: { (image) in
-                    if let image = image {
-                        movie.image = image
-                    }
-                })
-                
-               
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.updateViews()
-                })
-                
-            }
+            
             
             
             
             
             
             dispatch_async(dispatch_get_main_queue(), {
+                self.movieController.fetchedMovies = fetchedMovies
+                for movie in self.movieController.fetchedMovies {
+                    
+                    // fetch image
+                    
+                    ImageController.fetchImage(movie.imageString, completion: { (image) in
+                        
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if let image = image {
+                                movie.image = image
+                                self.updateViews()
+                            }
+                        })
+                       
+                    })
+                    
+                    
+                    //                dispatch_async(dispatch_get_main_queue(), {
+                    //                    //self.updateViews()
+                    //                })
+                    
+                    
+                }
+                
                 
             })
         }
+
+    }
+    
+    let movieController = MovieController()
+    
+    func updateViews(){
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+            print("table view reloading")
+        })
+       
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = "Movie Search"
+        searchBar.delegate = self
+        searchBar.placeholder = "Search for a movie."
+        
         
     }
 
