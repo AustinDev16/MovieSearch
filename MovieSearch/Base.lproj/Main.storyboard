@@ -18,8 +18,9 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="JtY-Wj-5xP">
+                                <searchBar contentMode="redraw" placeholder="Search for a movie" translatesAutoresizingMaskIntoConstraints="NO" id="JtY-Wj-5xP">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <offsetWrapper key="searchFieldBackgroundPositionAdjustment" horizontal="0.0" vertical="0.0"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                             </subviews>

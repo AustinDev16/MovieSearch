@@ -13,6 +13,12 @@ class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        
+        movieController.fetchedMovies = []
+        self.tableView.reloadData()
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
         guard let searchTerm = searchBar.text where searchTerm.characters.count > 0 else {return}
         
         fetchResults(searchTerm)
@@ -24,6 +30,7 @@ class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
         movieController.fetchMovies(searchTerm) { (fetchedMovies) in
             dispatch_async(dispatch_get_main_queue(), {
                 self.movieController.fetchedMovies = fetchedMovies
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 for movie in self.movieController.fetchedMovies {
                     
                     // fetch image
