@@ -18,26 +18,10 @@ class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
         fetchResults(searchTerm)
         
         view.endEditing(true)
-        
-        
-        
     }
     
     func fetchResults(searchTerm: String){
         movieController.fetchMovies(searchTerm) { (fetchedMovies) in
-            
-            print(fetchedMovies.count)
-            print(fetchedMovies.map { $0.title })
-            
-            // self.movieController.fetchedMovies = fetchedMovies
-            //fetch image
-            
-            
-            
-            
-            
-            
-            
             dispatch_async(dispatch_get_main_queue(), {
                 self.movieController.fetchedMovies = fetchedMovies
                 for movie in self.movieController.fetchedMovies {
@@ -54,13 +38,6 @@ class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
                         })
                        
                     })
-                    
-                    
-                    //                dispatch_async(dispatch_get_main_queue(), {
-                    //                    //self.updateViews()
-                    //                })
-                    
-                    
                 }
                 
                 
@@ -74,7 +51,6 @@ class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
     func updateViews(){
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
-            print("table view reloading")
         })
        
     }
@@ -84,8 +60,6 @@ class MovieListTableViewController: UITableViewController, UISearchBarDelegate {
         self.title = "Movie Search"
         searchBar.delegate = self
         searchBar.placeholder = "Search for a movie."
-        
-        
         
     }
 
